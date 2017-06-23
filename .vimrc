@@ -10,6 +10,7 @@
             inoremap <silent> <C-[>OC <RIGHT>
         endif
 " }
+
 " General {
     set background=dark " Assume a dark background
 
@@ -81,7 +82,7 @@
     set hlsearch
     set relativenumber
 
-    set foldmarker={,} foldlevel=0 foldmethod=marker
+    set foldmarker={,} foldlevel=0 foldmethod=syntax
 
 " vim UI {
     " set ruler                   " Show the ruler
@@ -123,11 +124,15 @@
     set backspace=indent,eol,start
     set nofoldenable
 " }
+"}
 
 "========================================
 " Custom key mapping
 "========================================
 " Custom_key_mapping{
+    " accordion expand traversal of folds
+    nnoremap <silent> z] :<C-u>silent! normal! zC<CR>zjzOzz
+    nnoremap <silent> z[ :<C-u>silent! normal! zC<CR>zkzO[zzz
     " Leader {
         let mapleader=","
         :nmap <Leader>q :q<CR>
@@ -140,7 +145,10 @@
     " }
 
     map! <C-[> <ESC>
+    map! jk <ESC>
+    :nmap <LEADER>s :w<CR>
     nmap <silent><F4> :nohlsearch<CR>
+    nmap <silent><F5> :so ~/.vimrc<CR>
 
     " Wrapped lines goes down/up to next row, rather than next line in file.
     noremap j gj
@@ -165,6 +173,7 @@
     " Adjust viewports to the same size
     map <Leader>= <C-w>=
 " }
+"}
 
 "========================================
 " Vundle
@@ -194,6 +203,7 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'scrooloose/syntastic'
 Plugin 'plasticboy/vim-markdown'
+Plugin 'fmoralesc/vim-tutor-mode'
 
 " Interaction
 Plugin 'godlygeek/csapprox'
@@ -204,6 +214,10 @@ Plugin 'godlygeek/tabular'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'tacahiroy/ctrlp-funky'
 Plugin 'thinca/vim-quickrun'
+Plugin 'tpope/vim-fugitive'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'jceb/vim-orgmode'
+Plugin 'tpope/vim-speeddating' " required by org mode
 
 " Interface
 Plugin 'vim-airline/vim-airline'
@@ -258,7 +272,7 @@ filetype plugin indent on
     "-----------------
     "{
         nmap <F3> :Autoformat<CR>
-        let g:formatdef_school = '"astyle --style=google"'
+        let g:formatdef_school = '"astyle --style=kr"'
         let g:formatters_c = ['school']
         let g:formatdef_autopep8 = "'autopep8 - --range '.a:firstline.' '.a:lastline"
         let g:formatters_python = ['autopep8']
@@ -289,6 +303,11 @@ filetype plugin indent on
     "--------------------
     " {
         " colorscheme 256-jungle
+        " colorscheme apprentice
+        hi DiffText   cterm=none ctermfg=255 ctermbg=60 gui=none guifg=Black guibg=Red
+        hi DiffChange cterm=none ctermfg=255 ctermbg=237 gui=none guifg=Black guibg=LightMagenta
+        hi DiffDelete cterm=none ctermfg=255 ctermbg=1 gui=none guifg=fg guibg=Blue
+        hi DiffAdd cterm=none ctermfg=255 ctermbg=23 gui=none guifg=fg guibg=Blue
         colorscheme lizard256
         " colorscheme default
         let g:airline_theme='papercolor'
@@ -313,6 +332,8 @@ filetype plugin indent on
     "set markdown
     "--------------------
     " {
+        let g:vim_markdown_new_list_item_indent = 0
+
         let g:vim_markdown_math = 1
     " }
 
@@ -330,4 +351,8 @@ filetype plugin indent on
 
 " }
 
-
+"{
+if &term =~ '256color'
+    set t_ut=
+endif
+"}

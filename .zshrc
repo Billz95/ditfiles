@@ -89,7 +89,11 @@ source $ZSH/oh-my-zsh.sh
 #
 
 # -Y allows sharing of clipboard
-alias unsw="ssh -Y z5130887@wagner.cse.unsw.edu.au"
+alias unsw="ssh z5130887@wagner.cse.unsw.edu.au"
+alias ldunsw="sudo sshfs -o allow_other,IdentityFile=/home/billz/.ssh/id_rsa z5130887@wagner.cse.unsw.edu.au:/import/kamen/3/z5130887/ /mnt/unsw"
+alias ulunsw="sudo fusermount -u /mnt/unsw"
+alias em="emacsclient -c"
+alias emt="emacsclient -t"
 alias tmux="tmux -2"
 alias tt="tmux -2 attach -t"
 alias ts="tmux -2 new-session -s"
@@ -97,4 +101,6 @@ alias tl="tmux -2 ls"
 alias vplug="vim +PluginInstall +qall"
 alias gw="gcc -Wall -Werror -O -o"
 alias idea="/opt/idea-IU-163.7743.44/bin/idea.sh"
-alias cs="cd ~/Documents/cs1927"
+alias cs="cd ~/Documents/unsw"
+alias os="cd ~/Documents/unsw/COMP3231"
+alias ..="cd .."
